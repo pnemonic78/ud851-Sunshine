@@ -47,10 +47,10 @@ public class MainActivity extends AppCompatActivity {
     private void loadWeatherData() {
         String location = SunshinePreferences.getPreferredWeatherLocation(this);
         URL url = NetworkUtils.buildUrl(location);
-        new ForecastAsyncTask().execute(url);
+        new FetchWeatherTask().execute(url);
     }
 
-    private class ForecastAsyncTask extends AsyncTask<URL, Void, String> {
+    private class FetchWeatherTask extends AsyncTask<URL, Void, String> {
 
         @Override
         protected String doInBackground(URL... urls) {
