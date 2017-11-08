@@ -6,8 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.util.zip.Inflater;
-
 /**
  * @author Moshe on 2017/11/08.
  */
