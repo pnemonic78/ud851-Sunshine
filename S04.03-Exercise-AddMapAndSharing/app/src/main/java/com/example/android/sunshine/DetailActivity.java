@@ -39,27 +39,19 @@ public class DetailActivity extends AppCompatActivity {
         MenuInflater inflater = getMenuInflater();
         /* Use the inflater's inflate method to inflate our menu layout to this menu */
         inflater.inflate(R.menu.details, menu);
+
+        MenuItem menuItem = menu.findItem(R.id.action_share);
+        menuItem.setIntent(createShareForecastIntent());
+
         /* Return true so that the menu is displayed in the Toolbar */
         return true;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        if (id == R.id.action_share) {
-            shareForecast();
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    private void shareForecast() {
-        ShareCompat.IntentBuilder.from(this)
+    private Intent createShareForecastIntent() {
+        return ShareCompat.IntentBuilder.from(this)
                 .setType("text/plain")
                 .setChooserTitle(R.string.title_share)
-                .setText(mForecast)
-                .startChooser();
+                .setText(mForecast + FORECAST_SHARE_HASHTAG)
+                .createChooserIntent();
     }
 }
