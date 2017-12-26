@@ -30,6 +30,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.android.sunshine.ForecastAdapter.ForecastAdapterOnClickHandler;
 import com.example.android.sunshine.data.SunshinePreferences;
@@ -221,8 +222,15 @@ public class MainActivity extends AppCompatActivity implements ForecastAdapterOn
             return true;
         }
 
-        // TODO (2) Launch the map when the map menu item is clicked
+        if (id == R.id.action_map) {
+            launchMap();
+            return true;
+        }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void launchMap() {
+        Toast.makeText(this, R.string.action_map, Toast.LENGTH_SHORT).show();
     }
 }
