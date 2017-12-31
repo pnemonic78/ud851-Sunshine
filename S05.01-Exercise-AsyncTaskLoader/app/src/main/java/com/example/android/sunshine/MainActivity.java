@@ -217,21 +217,20 @@ public class MainActivity extends AppCompatActivity implements ForecastAdapterOn
             public void deliverResult(String[] data) {
                 mCachedData = data;
                 super.deliverResult(data);
-
-                mLoadingIndicator.setVisibility(View.INVISIBLE);
-
-                if (data != null) {
-                    showWeatherDataView();
-                    mForecastAdapter.setWeatherData(data);
-                } else {
-                    showErrorMessage();
-                }
             }
         };
     }
 
     @Override
     public void onLoadFinished(Loader<String[]> loader, String[] data) {
+        mLoadingIndicator.setVisibility(View.INVISIBLE);
+
+        if (data != null) {
+            showWeatherDataView();
+            mForecastAdapter.setWeatherData(data);
+        } else {
+            showErrorMessage();
+        }
     }
 
     @Override
