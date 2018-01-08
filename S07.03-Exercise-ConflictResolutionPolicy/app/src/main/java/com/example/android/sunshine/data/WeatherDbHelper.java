@@ -86,7 +86,7 @@ public class WeatherDbHelper extends SQLiteOpenHelper {
                 WeatherEntry.COLUMN_WIND_SPEED + " REAL NOT NULL, "                    +
                 WeatherEntry.COLUMN_DEGREES    + " REAL NOT NULL,"                     +
 
-                "CONSTRAINT date_unique UNIQUE (" + WeatherEntry.COLUMN_DATE + ")"
+                "UNIQUE (" + WeatherEntry.COLUMN_DATE + ") ON CONFLICT REPLACE"
                 + ");";
 
         /*
