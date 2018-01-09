@@ -170,7 +170,10 @@ public class DetailActivity extends AppCompatActivity implements
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        return new CursorLoader(this, mUri, PROJECTION, null, null, null);
+        if (id == ID_WEATHER_LOADER) {
+            return new CursorLoader(this, mUri, PROJECTION, null, null, null);
+        }
+        throw new RuntimeException("Loader Not Implemented: " + id);
     }
 
     @Override
