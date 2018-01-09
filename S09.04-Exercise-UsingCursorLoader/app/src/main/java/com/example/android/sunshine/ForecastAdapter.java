@@ -16,7 +16,9 @@
 package com.example.android.sunshine;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.support.v7.widget.RecyclerView;
+import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,9 +30,7 @@ import android.widget.TextView;
  */
 class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ForecastAdapterViewHolder> {
 
-    //  TODO (14) Remove the mWeatherData declaration and the setWeatherData method
-    private String[] mWeatherData;
-    //  TODO (1) Declare a private final Context field called mContext
+    private final Context mContext;
 
     /*
      * Below, we've defined an interface to handle clicks on items within this Adapter. In the
@@ -47,16 +47,16 @@ class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ForecastAdapt
         void onClick(String weatherForDay);
     }
 
-//  TODO (2) Declare a private Cursor field called mCursor
-//  TODO (3) Add a Context field to the constructor and store that context in mContext
+    private Cursor mCursor;
 
     /**
      * Creates a ForecastAdapter.
      *
+     * @param context      the context.
      * @param clickHandler The on-click handler for this adapter. This single handler is called
-     *                     when an item is clicked.
      */
-    public ForecastAdapter(ForecastAdapterOnClickHandler clickHandler) {
+    public ForecastAdapter(Context context, ForecastAdapterOnClickHandler clickHandler) {
+        mContext = context;
         mClickHandler = clickHandler;
     }
 
@@ -65,7 +65,8 @@ class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ForecastAdapt
      * is laid out. Enough ViewHolders will be created to fill the screen and allow for scrolling.
      *
      * @param viewGroup The ViewGroup that these ViewHolders are contained within.
-     * @param viewType  If your RecyclerView has more than one type of item (which ours doesn't) you
+     * @param viewType  If your RecyclerView has more than one type of item (which ours doesn't)
+     *                  you
      *                  can use this viewType integer to provide a different layout. See
      *                  {@link android.support.v7.widget.RecyclerView.Adapter#getItemViewType(int)}
      *                  for more details.
@@ -93,12 +94,137 @@ class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ForecastAdapt
      */
     @Override
     public void onBindViewHolder(ForecastAdapterViewHolder forecastAdapterViewHolder, int position) {
-//      TODO (5) Delete the current body of onBindViewHolder
-//      TODO (6) Move the cursor to the appropriate position
-//      TODO (7) Generate a weather summary with the date, description, high and low
-        String weatherForThisDay = mWeatherData[position];
-//      TODO (8) Display the summary that you created above
-        forecastAdapterViewHolder.weatherSummary.setText(weatherForThisDay);
+        mCursor.moveToPosition(position);
+        final Context context = mContext;
+        long date = mCursor.getLong(MainActivity.INDEX_DATE);
+        String dateString = DateUtils.formatDateTime(context, date, DateUtils.FORMAT_SHOW_DATE);
+        String description = context.getString(getDescription(mCursor.getInt(MainActivity.INDEX_WEATHER_ID)));
+        float maxTemp = mCursor.getFloat(MainActivity.INDEX_MAX_TEMP);
+        float minTemp = mCursor.getFloat(MainActivity.INDEX_MIN_TEMP);
+        String highAndLowTemperature = context.getString(R.string.format_temperature, maxTemp) + "/" + context.getString(R.string.format_temperature, minTemp);
+        String weatherSummary = dateString + " - " + description + " - " + highAndLowTemperature;
+        forecastAdapterViewHolder.weatherSummary.setText(weatherSummary);
+    }
+
+    protected int getDescription(int weatherId) {
+        if ((weatherId >= 200) && (weatherId <= 299)) {
+            return R.string.condition_2xx;
+        }
+        if ((weatherId >= 300) && (weatherId <= 399)) {
+            return R.string.condition_3xx;
+        }
+        switch (weatherId) {
+            case 500:
+                return R.string.condition_500;
+            case 501:
+                return R.string.condition_501;
+            case 502:
+                return R.string.condition_502;
+            case 503:
+                return R.string.condition_503;
+            case 504:
+                return R.string.condition_504;
+            case 511:
+                return R.string.condition_511;
+            case 520:
+                return R.string.condition_520;
+            case 521:
+                return R.string.condition_521;
+            case 522:
+                return R.string.condition_522;
+            case 531:
+                return R.string.condition_531;
+            case 600:
+                return R.string.condition_600;
+            case 601:
+                return R.string.condition_601;
+            case 602:
+                return R.string.condition_602;
+            case 611:
+                return R.string.condition_611;
+            case 612:
+                return R.string.condition_612;
+            case 615:
+                return R.string.condition_615;
+            case 616:
+                return R.string.condition_616;
+            case 620:
+                return R.string.condition_620;
+            case 621:
+                return R.string.condition_621;
+            case 622:
+                return R.string.condition_622;
+            case 701:
+                return R.string.condition_701;
+            case 711:
+                return R.string.condition_711;
+            case 721:
+                return R.string.condition_721;
+            case 731:
+                return R.string.condition_731;
+            case 741:
+                return R.string.condition_741;
+            case 751:
+                return R.string.condition_751;
+            case 761:
+                return R.string.condition_761;
+            case 762:
+                return R.string.condition_762;
+            case 771:
+                return R.string.condition_771;
+            case 781:
+                return R.string.condition_781;
+            case 800:
+                return R.string.condition_800;
+            case 801:
+                return R.string.condition_801;
+            case 802:
+                return R.string.condition_802;
+            case 803:
+                return R.string.condition_803;
+            case 804:
+                return R.string.condition_804;
+            case 900:
+                return R.string.condition_900;
+            case 901:
+                return R.string.condition_901;
+            case 902:
+                return R.string.condition_902;
+            case 903:
+                return R.string.condition_903;
+            case 904:
+                return R.string.condition_904;
+            case 905:
+                return R.string.condition_905;
+            case 906:
+                return R.string.condition_906;
+            case 951:
+                return R.string.condition_951;
+            case 952:
+                return R.string.condition_952;
+            case 953:
+                return R.string.condition_953;
+            case 954:
+                return R.string.condition_954;
+            case 955:
+                return R.string.condition_955;
+            case 956:
+                return R.string.condition_956;
+            case 957:
+                return R.string.condition_957;
+            case 958:
+                return R.string.condition_958;
+            case 959:
+                return R.string.condition_959;
+            case 960:
+                return R.string.condition_960;
+            case 961:
+                return R.string.condition_961;
+            case 962:
+                return R.string.condition_962;
+            default:
+                return R.string.condition_unknown;
+        }
     }
 
     /**
@@ -109,10 +235,8 @@ class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ForecastAdapt
      */
     @Override
     public int getItemCount() {
-//      TODO (9) Delete the current body of getItemCount
-//      TODO (10) If mCursor is null, return 0. Otherwise, return the count of mCursor
-        if (null == mWeatherData) return 0;
-        return mWeatherData.length;
+        if (null == mCursor) return 0;
+        return mCursor.getCount();
     }
 
     /**
@@ -122,13 +246,13 @@ class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ForecastAdapt
      *
      * @param weatherData The new weather data to be displayed.
      */
-    public void setWeatherData(String[] weatherData) {
-        mWeatherData = weatherData;
-        notifyDataSetChanged();
+    public void swapCursor(Cursor weatherData) {
+        mCursor = weatherData;
+        if (weatherData != null) {
+            // After the new Cursor is set, call notifyDataSetChanged
+            notifyDataSetChanged();
+        }
     }
-
-//  TODO (11) Create a new method that allows you to swap Cursors.
-//      TODO (12) After the new Cursor is set, call notifyDataSetChanged
 
     /**
      * A ViewHolder is a required part of the pattern for RecyclerViews. It mostly behaves as
@@ -151,9 +275,7 @@ class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ForecastAdapt
          */
         @Override
         public void onClick(View v) {
-            //  TODO (13) Instead of passing the String from the data array, use the weatherSummary text!
-            int adapterPosition = getAdapterPosition();
-            String weatherForDay = mWeatherData[adapterPosition];
+            String weatherForDay = weatherSummary.getText().toString();
             mClickHandler.onClick(weatherForDay);
         }
     }
