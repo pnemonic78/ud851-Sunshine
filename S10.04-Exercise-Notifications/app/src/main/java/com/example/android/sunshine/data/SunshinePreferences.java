@@ -192,8 +192,7 @@ public final class SunshinePreferences {
      * @return Elapsed time in milliseconds since the last notification was shown
      */
     public static long getEllapsedTimeSinceLastNotification(Context context) {
-        long lastNotificationTimeMillis =
-                SunshinePreferences.getLastNotificationTimeInMillis(context);
+        long lastNotificationTimeMillis = getLastNotificationTimeInMillis(context);
         long timeSinceLastNotification = System.currentTimeMillis() - lastNotificationTimeMillis;
         return timeSinceLastNotification;
     }
@@ -211,5 +210,11 @@ public final class SunshinePreferences {
         String lastNotificationKey = context.getString(R.string.pref_last_notification);
         editor.putLong(lastNotificationKey, timeOfNotification);
         editor.apply();
+    }
+
+    public static boolean isNotificationsEnabled(Context context) {
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
+        return sp.getBoolean(context.getString(R.string.pref_enable_notifications_key),
+                context.getResources().getBoolean(R.bool.pref_enable_notifications_default));
     }
 }
