@@ -12,6 +12,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
+import android.support.v4.content.ContextCompat;
 
 import com.example.android.sunshine.DetailActivity;
 import com.example.android.sunshine.R;
@@ -95,12 +96,15 @@ public class NotificationUtils {
                     .setLargeIcon(largeIcon)
                     .setContentTitle(notificationTitle)
                     .setContentText(notificationText)
-                    .setSmallIcon(smallArtResourceId);
+                    .setSmallIcon(smallArtResourceId)
+                    .setAutoCancel(true)
+                    .setColor(ContextCompat.getColor(context, R.color.colorPrimary));
 
             Intent intent = new Intent(context, DetailActivity.class);
+            intent.setData(todaysWeatherUri);
 
             PendingIntent pendingIntent = TaskStackBuilder.create(context)
-                    .addNextIntent(intent)
+                    .addNextIntentWithParentStack(intent)
                     .getPendingIntent(WEATHER_PENDING_ID, PendingIntent.FLAG_UPDATE_CURRENT);
 
             builder.setContentIntent(pendingIntent);
