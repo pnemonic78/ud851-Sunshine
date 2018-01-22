@@ -92,12 +92,15 @@ class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ForecastAdapt
     @Override
     public ForecastAdapterViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         int layoutId;
-        if (viewType == TYPE_TODAY) {
-            layoutId = R.layout.list_item_forecast_today;
-        } else if (viewType == TYPE_FUTURE) {
-            layoutId = R.layout.forecast_list_item;
-        } else {
-            throw new IllegalArgumentException("Unknown view type: " + viewType);
+        switch (viewType) {
+            case TYPE_TODAY:
+                layoutId = R.layout.list_item_forecast_today;
+                break;
+            case TYPE_FUTURE:
+                layoutId = R.layout.forecast_list_item;
+                break;
+            default:
+                throw new IllegalArgumentException("Unknown view type: " + viewType);
         }
 
         View view = LayoutInflater
@@ -128,12 +131,15 @@ class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ForecastAdapt
         int weatherImageId;
 
         int viewType = getItemViewType(position);
-        if (viewType == TYPE_TODAY) {
-            weatherImageId = SunshineWeatherUtils.getLargeArtResourceIdForWeatherCondition(weatherId);
-        } else if (viewType == TYPE_FUTURE) {
-            weatherImageId = SunshineWeatherUtils.getSmallArtResourceIdForWeatherCondition(weatherId);
-        } else {
-            throw new IllegalArgumentException("Unknown view type: " + viewType);
+        switch (viewType) {
+            case TYPE_TODAY:
+                weatherImageId = SunshineWeatherUtils.getLargeArtResourceIdForWeatherCondition(weatherId);
+                break;
+            case TYPE_FUTURE:
+                weatherImageId = SunshineWeatherUtils.getSmallArtResourceIdForWeatherCondition(weatherId);
+                break;
+            default:
+                throw new IllegalArgumentException("Unknown view type: " + viewType);
         }
 
         forecastAdapterViewHolder.iconView.setImageResource(weatherImageId);
