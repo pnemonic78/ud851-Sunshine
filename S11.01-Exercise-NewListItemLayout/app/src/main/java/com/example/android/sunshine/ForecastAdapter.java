@@ -124,6 +124,7 @@ class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ForecastAdapt
         double lowInCelsius = mCursor.getDouble(MainActivity.INDEX_WEATHER_MIN_TEMP);
 
         forecastAdapterViewHolder.weatherIcon.setImageResource(SunshineWeatherUtils.getLargeArtResourceIdForWeatherCondition(weatherId));
+        forecastAdapterViewHolder.weatherIcon.setContentDescription(description);
         forecastAdapterViewHolder.weatherDay.setText(dateString);
         forecastAdapterViewHolder.weatherDescription.setText(description);
         forecastAdapterViewHolder.weatherTempMax.setText(SunshineWeatherUtils.formatTemperature(mContext, highInCelsius));
