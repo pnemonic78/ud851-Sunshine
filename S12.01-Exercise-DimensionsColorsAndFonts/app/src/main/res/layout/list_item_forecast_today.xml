@@ -33,7 +33,7 @@
     android:layout_height="wrap_content"
     android:paddingBottom="@dimen/today_forecast_list_item_vertical_padding"
     android:paddingTop="@dimen/today_forecast_list_item_vertical_padding"
-    android:background="@color/detail_accent_pane_background">
+    android:background="@color/colorPrimary">
 
     <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
      - This Guideline divides the screen into a left half and a right half and is used to        -
@@ -64,7 +64,8 @@
         android:layout_marginBottom="16dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Title"
         android:textSize="20sp"
-        android:textColor="@color/primary_text"
+        android:textColor="@color/white"
+        android:fontFamily="sans-serif"
         app:layout_constraintBottom_toTopOf="@+id/weather_icon"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -89,7 +90,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:textSize="20sp"
-        android:textColor="@color/secondary_text"
+        android:textColor="@color/white"
         app:layout_constraintHorizontal_bias="0.52"
         app:layout_constraintLeft_toLeftOf="@+id/weather_icon"
         app:layout_constraintRight_toRightOf="@+id/weather_icon"
@@ -111,7 +112,7 @@
         android:layout_height="101dp"
         android:fontFamily="sans-serif-light"
         android:textSize="72sp"
-        android:textColor="@color/primary_text"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="@+id/weather_icon"
         app:layout_constraintHorizontal_bias="0.45"
         app:layout_constraintLeft_toLeftOf="@+id/horizontal_middle"
@@ -133,7 +134,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="36sp"
-        android:textColor="@color/secondary_text"
+        android:textColor="@color/white"
         android:fontFamily="sans-serif-light"
         app:layout_constraintBaseline_toBaselineOf="@+id/weather_description"
         app:layout_constraintLeft_toLeftOf="@+id/high_temperature"
